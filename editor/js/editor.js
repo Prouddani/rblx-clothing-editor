@@ -1,7 +1,7 @@
 import * as three from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { DecalGeometry } from '/jsm/geometries/DecalGeometry.js';
+import { DecalGeometry } from '../../jsm/geometries/DecalGeometry.js';
 import { RigExporter } from './export.js';
 
 // Variables & Constants
