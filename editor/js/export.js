@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { DecalGeometry } from '/jsm/geometries/DecalGeometry.js';
 
 const sum_array = (a, b) => {
     return a.map((val, i) => val + b[i]);
