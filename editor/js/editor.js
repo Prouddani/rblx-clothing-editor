@@ -12,7 +12,7 @@ let lastPaint = {
 };
 let paintAmount = 0;
 const brushShapes = {
-    CIRCULAR: new three.TextureLoader().load('/public/paint.png'),
+    CIRCULAR: new three.TextureLoader().load('../../public/paint.png'),
 }
 brushShapes.CIRCULAR.premultiplyAlpha = true;
 brushShapes.CIRCULAR.colorSpace = three.SRGBColorSpace;
@@ -197,7 +197,7 @@ async function initCharacter() {
     };
 
     const [ head, torso, rightArm, leftArm, rightLeg, leftLeg ] = await Promise.all([
-        loadObjFile('/public/resources/head/Head.obj', 'head' ),
+        loadObjFile('../../public/resources/head/Head.obj', 'head' ),
         Promise.resolve(makeBox(2, 2, 1, 'torso' )),
         Promise.resolve(makeBox(1, 2, 1, 'rightArm')),
         Promise.resolve(makeBox(1, 2, 1, 'leftArm')),
@@ -206,7 +206,7 @@ async function initCharacter() {
     ]);
 
     { // Face
-        const faceTex = await new three.TextureLoader().loadAsync('/public/resources/head/face.png');
+        const faceTex = await new three.TextureLoader().loadAsync('../../public/resources/head/face.png');
         faceTex.colorSpace = three.SRGBColorSpace;
         const face = new three.Mesh(
             new three.PlaneGeometry(1, 1),
