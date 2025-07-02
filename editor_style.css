@@ -1,0 +1,201 @@
+html, body {
+    /* fixes width */
+    margin: 0;
+    box-sizing: border-box;
+}
+* {
+    box-sizing: inherit;
+}
+
+
+/* header stuff */
+header {
+    background-color: rgb(240, 240, 240);
+    margin-bottom: 1em;
+}
+header ul {
+    /* fixes height */
+    margin: 0;
+
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+header ul li {
+    border: 0.15em outset rgb(194, 194, 194);
+    margin: 0em 0.1em;
+
+    font-size: 1.1em;
+    font-family: sans-serif;
+}
+header ul li:last-child {
+    margin: 0em 2em 0em 0.1em;
+}
+header ul li#logo {
+    border: none;
+    margin: 0;
+    margin-right: auto;
+    font-size: 2em;
+}
+header ul li a {
+    display: block;
+    padding: 0.5em 2em;
+
+    color: black;
+    text-decoration: none;
+}
+
+
+/* content */
+p {
+    margin-top: 1.5em;
+    margin-left: 1em;
+    font-size: 1.1em;
+    font-family: sans-serif;
+}
+h1 {
+    font-family: sans-serif;
+    font-size: 1.4em;
+    border-bottom: 2px solid black;
+    text-align: center;
+    width: 8em;
+    margin-left: 3em;
+}
+
+
+/* Main */
+main {
+    display: grid;
+    grid-template-rows: 800px;
+    grid-template-columns: auto 600px auto;
+}
+
+
+/* Renderer */
+#renderer {
+    background-color: rgb(240, 240, 240);
+
+    display: block;
+
+    /* We don't need to make a rule for width and height, because
+        main.js already does that for us */
+}
+
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    margin: 0.5em 0 0 0;
+    padding: 0;
+}
+.toolbar li {
+    list-style-type: none;
+    list-style-position: inside;
+}
+.toolbar li button {
+    width: 4em;
+    height: 4em;
+    display: block;
+    background-color: rgb(240, 240, 240);
+    border: 2px solid gray
+}
+.toolbar li label {
+    font-family: sans-serif;
+}
+
+#left-toolbar li {
+    text-align: end;
+    margin: 0.2em 0.4em 0.2em auto;
+}
+
+
+#right-toolbar {
+    margin-left: 0.4em
+}
+
+#right-toolbar li #brush-settings {
+    display: grid;
+    grid-template-columns: 4em 10em;
+    grid-template-rows: 4em;
+}
+
+#right-toolbar li #brush-settings #brush-size-settings #brush-size {
+    width: 20em;
+    height: 1.5em;
+}
+#right-toolbar li #brush-settings #brush-size-settings #brush-size-label {
+    display: block;
+    width: 15em;
+    text-align: center;
+}
+
+#paint-colorwheel {
+    border: 1px solid gray;
+    padding: 2em;
+}
+
+
+/* View limbs (mini character) */
+#left-toolbar li#view-limbs button{
+    border: 2px solid orange;
+}
+button:hover{
+    cursor:pointer;
+}
+
+#left-toolbar li#view-limbs button#view-head{
+    width: 25px;
+    height: 25px;
+    margin-left: 37.5px;
+    border-radius: 4px;
+}
+
+/* Upper Body */
+#left-toolbar li#view-limbs span#upper-body{
+    display: grid;
+    grid-template-columns: 25px 50px 25px;
+    grid-template-rows: 50px;
+    margin-right: 25px;
+}
+#left-toolbar li#view-limbs span#upper-body *{
+    width: 25px;
+    border-radius: 4px;
+}
+#left-toolbar li#view-limbs span#upper-body #view-torso{
+    width: 50px;
+    z-index: 1;
+}
+
+/* Lower Body */
+#left-toolbar li#view-limbs span#lower-body{
+    display: grid;
+    grid-template-columns: 25px 25px;
+    grid-template-rows: 50px;
+}
+#left-toolbar li#view-limbs span#lower-body *{
+    width: 25px;
+    margin-left: 25px;
+    border-radius: 4px;
+}
+
+/* Export */
+#export-canvas {
+    display: none;
+    border: 2px solid black;
+}
+
+#export-button {
+    width: 11em;
+    height: 5em;
+    background-color: orange;
+    color: white;
+    font-family: Verdana;
+    font-size: 1.4em;
+}

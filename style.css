@@ -1,0 +1,70 @@
+html, body {
+    /* fixes width */
+    margin: 0;
+
+    box-sizing: border-box;
+}
+* {
+    box-sizing: inherit;
+}
+
+/* header stuff */
+header {
+    background-color: rgb(240, 240, 240);
+}
+header ul {
+    /* fixes height */
+    margin: 0;
+
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+header ul li {
+    border: 0.15em outset rgb(194, 194, 194);
+    margin: 0em 0.1em;
+
+    font-size: 1.1em;
+    font-family: sans-serif;
+}
+header ul li:last-child {
+    margin: 0em 2em 0em 0.1em;
+}
+header ul li#logo {
+    border: none;
+    margin: 0;
+    margin-right: auto;
+    font-size: 2em;
+}
+header ul li a {
+    display: block;
+    padding: 0.5em 2em;
+
+    color: black;
+    text-decoration: none;
+}
+
+/* content */
+img {
+    float: right;
+    width: 200px;
+    height: 200px;
+    margin: 1em;
+    border: 2px dotted rgb(150, 150, 150)
+}
+p {
+    margin-top: 1.5em;
+    margin-left: 1em;
+    font-size: 1.1em;
+    font-family: sans-serif;
+}
+h1 {
+    font-family: sans-serif;
+    font-size: 1.4em;
+    border-bottom: 2px solid black;
+    text-align: center;
+    width: 8em;
+    margin-left: 3em;
+}

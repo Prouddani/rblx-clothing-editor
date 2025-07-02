@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Roblox Clothes Design</title>
+        <meta charset="utf-16">
+        <style>
+            @import url(editor_style.css);
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@v0.176.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.176.0/examples/jsm/"
+            }
+        }
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <ul>
+                <li id="logo">
+                    <a href="/" style="padding-right: 0.5em; padding-left: 0.1em;">
+                        Roblox Clothes Editor
+                    </a>
+                </li>
+                <li><a href="/#aboutus">About us</a></li>
+                <li><a href="/editor">Editor</a></li>
+            </ul>
+        </header>
+
+        <main>
+            <canvas id="export-canvas"></canvas>
+
+            <ul class="toolbar" id="left-toolbar">
+                <li>
+                    <label>Character Color: <input id="ccolorpicker" type="color" value="#8C8C8C"></label>
+                </li>
+                <li id="view-limbs">
+                    <button id="view-head" viewing onclick="
+                        {
+                            let element = document.getElementById('view-head');
+                            element.toggleAttribute('viewing')
+                            element.style.borderColor = (element.getAttribute('viewing') != null) ? 'orange' : 'rgb(140, 140, 140)';
+                        }">
+                    </button>
+                    <span id="upper-body">
+                        <button id="view-rightarm" viewing onclick="
+                            {
+                                let element = document.getElementById('view-rightarm');
+                                element.toggleAttribute('viewing')
+                                element.style.borderColor = (element.getAttribute('viewing') != null) ? 'orange' : 'rgb(140, 140, 140)';
+                            }">
+                        </button>
+                        <button id="view-torso" viewing onclick="
+                            {
+                                let element = document.getElementById('view-torso');
+                                element.toggleAttribute('viewing')
+                                element.style.borderColor = (element.getAttribute('viewing') != null) ? 'orange' : 'rgb(140, 140, 140)';
+                            }">
+                        </button>
+                        <button id="view-leftarm" viewing onclick="
+                            {
+                                let element = document.getElementById('view-leftarm');
+                                element.toggleAttribute('viewing')
+                                element.style.borderColor = (element.getAttribute('viewing') != null) ? 'orange' : 'rgb(140, 140, 140)';
+                            }">
+                        </button>
+                    </span>
+                    <span id="lower-body">
+                        <button id="view-rightleg" viewing onclick="
+                            {
+                                let element = document.getElementById('view-rightleg');
+                                element.toggleAttribute('viewing')
+                                element.style.borderColor = (element.getAttribute('viewing') != null) ? 'orange' : 'rgb(140, 140, 140)';
+                            }">
+                        </button>
+                        <button id="view-leftleg" viewing onclick="
+                            {
+                                let element = document.getElementById('view-leftleg');
+                                element.toggleAttribute('viewing')
+                                element.style.borderColor = (element.getAttribute('viewing') != null) ? 'orange' : 'rgb(140, 140, 140)';
+                            }">
+                        </button>
+                    </span>
+                </li>
+                
+            </ul>
+
+            <canvas id="renderer"></canvas>
+
+            <ul class="toolbar" id="right-toolbar">
+                <li style="margin-top: 0.8em; margin-bottom: 0.8em;">
+                    <div id="paint-colorwheel"></div>
+                </li>
+                <li>
+                    <span id="brush-settings">
+                        <button id="brush-tool" active>
+                            Brush Tool
+                        </button>
+                        <span id="brush-size-settings">
+                            <label id="brush-size-label">0.5</label>
+                            <input type="range" id="brush-size" min="0.1" max="1" step="0.1", value="0.5">
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <button id="bucket-tool">
+                        <img src="images/toolbar/bucket-tool.png">
+                    </button>
+                </li>
+                <li>
+                    <button id="export-button">Export</button>
+                </li>
+            </ul>
+        </main>
+
+        <script type="module" src="js/editor.js"></script>
+    </body>
+</html>
