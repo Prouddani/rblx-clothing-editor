@@ -165,7 +165,7 @@ class RigExporter {
 
             exportScene.clear()
             ctx.clearRect(0, 0, 585, 559) // Clears the temporary context
-
+            
             const cameraPosition = {
                 FRONT: new THREE.Vector3(0, 0, 1),
                 BACK: new THREE.Vector3(0, 0, -1),
@@ -223,8 +223,7 @@ class RigExporter {
 
             ctx2.drawImage(
                 canvas, // Canvas to copy from
-                0, 0, this.templateSettings.width, this.templateSettings.height, // Where the image starts
-                x0, y0, w, h // Where the image ends
+                x0, y0, w, h
             );
         });
 
