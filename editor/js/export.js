@@ -138,65 +138,100 @@ class RigExporter {
         };
     }
 
-    Export(face, torso=THREE.Mesh, decals=[]) {
+    Export(torso=THREE.Mesh, decals=[]) {
         const exportScene = new THREE.Scene();
-        const frontCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-        frontCamera.position.set(0, 0, 1);
-        frontCamera.lookAt(0, 0, 0);
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
 
-        // Add decals that are projected on front face
-        decals.forEach((decal) => {
-            if (decal.userData.face === face) {
-                const dc = decal.clone();
-                dc.material = new THREE.MeshBasicMaterial({
-                    map: decal.material.map,
-                    color: decal.material.color,
-                    transparent: decal.material.transparent,
-                    depthWrite: decal.material.depthWrite,
-                    depthTest: decal.material.depthTest,
-                    polygonOffset: decal.material.polygonOffset,
-                    polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
-                    alphaTest: decal.material.alphaTest,
-                    blending: THREE.NormalBlending
-                });
-
-                exportScene.add(dc);
-            }
-        });
-
-
-        // Render only that part of the face
-        this.renderer.setRenderTarget(this.renderTarget);
-        this.renderer.render(exportScene, frontCamera);
-        this.renderer.setRenderTarget(null);
-        this.renderer.render( // Display to the #export-canvas element
-            new THREE.Scene().add(new THREE.Mesh(
-                new THREE.PlaneGeometry(2, 2),
-                new THREE.MeshBasicMaterial({ map: this.renderTarget.texture })
-            )),
-            new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
-        );
-
-        // Texture gets converted to pixels
-        const pixels = new Uint8Array(this.templateSettings.width * this.templateSettings.height * 4);
-        this.renderer.readRenderTargetPixels(this.renderTarget, 0, 0, this.templateSettings.width, this.templateSettings.height, pixels);
-        this.flipImageDataY(pixels, this.templateSettings.width, this.templateSettings.height);
-
-        // Texture gets transformed to a .png
         const canvas = document.createElement('canvas');
         canvas.width = this.templateSettings.width;
         canvas.height = this.templateSettings.height;
         const ctx = canvas.getContext('2d');
-        const imageData = ctx.createImageData(this.templateSettings.width, this.templateSettings.height);
-        
-        this.linearToSRGB(pixels); // Convers Linear to sRGB, so the image isn't darken up
-        imageData.data.set(pixels);
-        ctx.putImageData(imageData, 0, 0);
+
+        const canvas2 = document.createElement('canvas');
+        canvas2.width = this.templateSettings.width;
+        canvas2.height = this.templateSettings.height;
+        const ctx2 = canvas.getContext('2d');
+
+        // Torso
+        faces = ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'TOP', 'DOWN']
+        faces.forEach(face => {
+            /*
+             * How it works:
+             * - On each face, we get it's texture (with DecalGeometries), put it in a temp canvas (canvas).
+             * - Then, we copy what is drawn in the canvas and put it in a specific place inside canvas2, by the context (ctx2)
+             * - After doing for all sides, we simply export and the user downloads the torso
+            */
+
+
+            exportScene.clear()
+            ctx.clearRect(0, 0, 585, 559) // Clears the temporary context
+
+            const cameraPosition = {
+                FRONT: new THREE.Vector3(0, 0, 1),
+                BACK: new THREE.Vector3(0, 0, -1),
+                LEFT: new THREE.Vector3(1, 0, 0),
+                RIGHT: new THREE.Vector3(-1, 0, 0),
+                TOP: new THREE.Vector3(0, 1, 0),
+                DOWN: new THREE.Vector3(0, -1, 0)
+            }[face]
+            camera.position.copy(cameraPosition);
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.updateMatrixWorld();
+
+            // Add decals that are projected on front face
+            decals.forEach((decal) => {
+                if (decal.userData.face === face) {
+                    const dc = decal.clone();
+                    dc.material = new THREE.MeshBasicMaterial({
+                        map: decal.material.map,
+                        color: decal.material.color,
+                        transparent: decal.material.transparent,
+                        depthWrite: decal.material.depthWrite,
+                        depthTest: decal.material.depthTest,
+                        polygonOffset: decal.material.polygonOffset,
+                        polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
+                        alphaTest: decal.material.alphaTest,
+                        blending: THREE.NormalBlending
+                    });
+
+                    exportScene.add(dc);
+                }
+            });
+
+
+            // Render only that part of the face
+            this.renderer.setRenderTarget(this.renderTarget);
+            this.renderer.render(exportScene, camera);
+
+            this.renderer.setRenderTarget(null);
+
+            // Texture gets converted to pixels
+            const pixels = new Uint8Array(this.templateSettings.width * this.templateSettings.height * 4);
+            this.renderer.readRenderTargetPixels(this.renderTarget, 0, 0, this.templateSettings.width, this.templateSettings.height, pixels);
+            this.flipImageDataY(pixels, this.templateSettings.width, this.templateSettings.height);
+            this.linearToSRGB(pixels); // Convers Linear to sRGB, so the image isn't darken up
+            
+            // Convert to canvas
+            const imageData = ctx.createImageData(this.templateSettings.width, this.templateSettings.height);
+            imageData.data.set(pixels);
+            ctx.putImageData(imageData, 0, 0);
+
+            // Place on final canvas
+            const [x0, y0, x1, y1] = mapping['torso'][face];
+            const w = x1 - x0;
+            const h = y1 - y0;
+
+            ctx2.drawImage(
+                canvas, // Canvas to copy from
+                0, 0, this.templateSettings.width, this.templateSettings.height, // Where the image starts
+                x0, y0, w, h // Where the image ends
+            );
+        });
 
         // Download & Export
         const link = document.createElement('a');
         link.download = 'front_face_texture.png';
-        link.href = canvas.toDataURL();
+        link.href = canvas2.toDataURL();
         link.click();
     }
 }

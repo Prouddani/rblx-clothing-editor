@@ -71,8 +71,8 @@ exportRenderer.setSize(512, 512);
 exportRenderer.outputEncoding = three.sRGBEncoding;
 
 const exporter = new RigExporter(exportRenderer, {
-    width: 512,
-    height: 512,
+    width: 585,
+    height: 559,
 });
 
 
@@ -477,7 +477,6 @@ exportButton.on('click', function(e) {
     console.log('Export button clicked!')
 
     exporter.Export(
-        'front',
         scene.getObjectByName('torso'),
         paint_locations['torso'],
     );
