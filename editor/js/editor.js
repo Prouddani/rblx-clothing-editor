@@ -415,12 +415,12 @@ const handleTools = (event, selectedTool) => {
             },
             getNormalFace: (v) => {
                 const map = {
-                    '1, 0, 0': 'right',
-                    '-1, 0, 0': 'left',
-                    '0, 1, 0': 'top',
-                    '0, -1, 0': 'bottom',
-                    '0, 0, 1': 'front',
-                    '0, 0, -1': 'back',
+                    '1, 0, 0': 'RIGHT',
+                    '-1, 0, 0': 'LEFT',
+                    '0, 1, 0': 'UP',
+                    '0, -1, 0': 'DOWN',
+                    '0, 0, 1': 'FRONT',
+                    '0, 0, -1': 'BACK',
                 };
                 return map[`${v.x}, ${v.y}, ${v.z}`];
             }
