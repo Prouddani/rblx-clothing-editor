@@ -153,7 +153,7 @@ class RigExporter {
         const ctx2 = canvas.getContext('2d');
 
         // Torso
-        faces = ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'TOP', 'DOWN']
+        const faces = ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'TOP', 'DOWN']
         faces.forEach(face => {
             /*
              * How it works:
