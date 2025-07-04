@@ -225,8 +225,9 @@ class RigExporter {
             const h = y1 - y0;
 
             ctx2.drawImage(
-                canvas, // Canvas to copy from
-                x0, y0, w, h
+                canvas,        // source canvas
+                0, 0, canvas.width, canvas.height, // Crop image
+                x0, final_canvas.height - y1, w, h // Destination
             );
         });
 
