@@ -198,13 +198,23 @@ class RigExporter {
 
                 exportScene.add(dc);
             };
-            
+
 
             // Render only that part of the face
             this.renderer.setRenderTarget(this.renderTarget);
             this.renderer.render(exportScene, camera);
 
             this.renderer.setRenderTarget(null);
+            // Display to the #export-canvas element
+            this.renderer.render(
+                new THREE.Scene().add(new THREE.Mesh(
+                    new THREE.PlaneGeometry(2, 2),
+                    new THREE.MeshBasicMaterial({
+                        map: this.renderTarget.texture,
+                    })
+                )),
+                new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
+            );
 
             // Texture gets converted to pixels
             const pixels = new Uint8Array(this.templateSettings.width * this.templateSettings.height * 4);
