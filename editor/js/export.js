@@ -153,8 +153,7 @@ class RigExporter {
         const ctx2 = canvas.getContext('2d');
 
         // Torso
-        const faces = ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'TOP', 'DOWN']
-        faces.forEach(face => {
+        ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'TOP', 'DOWN'].forEach(face => {
             /*
              * How it works:
              * - On each face, we get it's texture (with DecalGeometries), put it in a temp canvas (canvas).
