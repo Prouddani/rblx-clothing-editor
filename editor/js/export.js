@@ -179,7 +179,10 @@ class RigExporter {
             camera.updateMatrixWorld();
 
             // Add decals that are projected on the object
-            decals.forEach((decal) => {
+            for (const decal of decals) {
+                if (decal.userData.face != face)
+                    continue;
+
                 const dc = decal.clone();
                 dc.material = new THREE.MeshBasicMaterial({
                     map: decal.material.map,
@@ -194,8 +197,8 @@ class RigExporter {
                 });
 
                 exportScene.add(dc);
-            });
-
+            };
+            
 
             // Render only that part of the face
             this.renderer.setRenderTarget(this.renderTarget);
@@ -218,7 +221,7 @@ class RigExporter {
             const [x0, y0, x1, y1] = mapping['torso'][face];
             const w = x1 - x0;
             const h = y1 - y0;
-            
+
             ctx2.drawImage(
                 canvas,        // source canvas
                 0, 0, canvas.width, canvas.height, // Crop image
