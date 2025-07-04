@@ -170,7 +170,7 @@ class RigExporter {
                 BACK: new THREE.Vector3(0, 0, -1),
                 LEFT: new THREE.Vector3(1, 0, 0),
                 RIGHT: new THREE.Vector3(-1, 0, 0),
-                TOP: new THREE.Vector3(0, 1, 0),
+                UP: new THREE.Vector3(0, 1, 0),
                 DOWN: new THREE.Vector3(0, -1, 0)
             }[face]
             camera.position.copy(cameraPosition);
