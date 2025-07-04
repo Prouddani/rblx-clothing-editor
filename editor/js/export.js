@@ -142,7 +142,7 @@ class RigExporter {
         const exportScene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
 
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement('canvas'); // Temporary
         canvas.width = this.templateSettings.width;
         canvas.height = this.templateSettings.height;
         const ctx = canvas.getContext('2d');
@@ -178,24 +178,22 @@ class RigExporter {
             camera.lookAt(new THREE.Vector3(0, 0, 0));
             camera.updateMatrixWorld();
 
-            // Add decals that are projected on front face
+            // Add decals that are projected on the object
             decals.forEach((decal) => {
-                if (decal.userData.face === face) {
-                    const dc = decal.clone();
-                    dc.material = new THREE.MeshBasicMaterial({
-                        map: decal.material.map,
-                        color: decal.material.color,
-                        transparent: decal.material.transparent,
-                        depthWrite: decal.material.depthWrite,
-                        depthTest: decal.material.depthTest,
-                        polygonOffset: decal.material.polygonOffset,
-                        polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
-                        alphaTest: decal.material.alphaTest,
-                        blending: THREE.NormalBlending
-                    });
+                const dc = decal.clone();
+                dc.material = new THREE.MeshBasicMaterial({
+                    map: decal.material.map,
+                    color: decal.material.color,
+                    transparent: decal.material.transparent,
+                    depthWrite: decal.material.depthWrite,
+                    depthTest: decal.material.depthTest,
+                    polygonOffset: decal.material.polygonOffset,
+                    polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
+                    alphaTest: decal.material.alphaTest,
+                    blending: THREE.NormalBlending
+                });
 
-                    exportScene.add(dc);
-                }
+                exportScene.add(dc);
             });
 
 
@@ -220,7 +218,7 @@ class RigExporter {
             const [x0, y0, x1, y1] = mapping['torso'][face];
             const w = x1 - x0;
             const h = y1 - y0;
-
+            
             ctx2.drawImage(
                 canvas,        // source canvas
                 0, 0, canvas.width, canvas.height, // Crop image
