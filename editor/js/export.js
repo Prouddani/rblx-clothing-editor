@@ -144,18 +144,6 @@ class RigExporter {
         frontCamera.position.set(0, 0, 1);
         frontCamera.lookAt(0, 0, 0);
 
-        // // Extract only front face geometry from the object
-        // const faceMesh = new THREE.Mesh(
-        //     this.extractFaceGeometry(torso.geometry.clone(), face),
-        //     new THREE.MeshBasicMaterial({
-        //         map: torso.material.map || null,
-        //         color: torso.material.color || new THREE.Color(1, 1, 1)
-        //     })
-        // );
-        // faceMesh.rotation.copy(torso.rotation);
-        // faceMesh.position.copy(torso.position);
-        // exportScene.add(faceMesh);
-
         // Add decals that are projected on front face
         decals.forEach((decal) => {
             if (decal.userData.face === face) {
