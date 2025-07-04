@@ -161,9 +161,10 @@ class RigExporter {
              * - After doing for all sides, we simply export and the user downloads the torso
             */
 
+            
             exportScene.clear()
             ctx.clearRect(0, 0, 585, 559) // Clears the temporary context
-            
+
             const cameraPosition = {
                 FRONT: new THREE.Vector3(0, 0, 1),
                 BACK: new THREE.Vector3(0, 0, -1),
