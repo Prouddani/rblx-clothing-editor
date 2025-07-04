@@ -172,7 +172,8 @@ class RigExporter {
                 RIGHT: new THREE.Vector3(-1, 0, 0),
                 UP: new THREE.Vector3(0, 1, 0),
                 DOWN: new THREE.Vector3(0, -1, 0)
-            }[face]
+            }[face];
+            console.log('Rendering face:', face, 'Camera position:', cameraPosition);
             camera.position.copy(cameraPosition);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
             camera.updateMatrixWorld();
