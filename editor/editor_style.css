@@ -187,9 +187,8 @@ button:hover{
 
 /* Export */
 #export-canvas {
+    display: block;
     border: 2px solid black;
-    width: 585;
-    height: 559;
 }
 
 #export-button {

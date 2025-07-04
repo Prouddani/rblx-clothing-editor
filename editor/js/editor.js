@@ -67,7 +67,7 @@ const exportRenderer = new three.WebGLRenderer({
     antialias: false,
     canvas: $('#export-canvas')[0],
 })
-exportRenderer.setSize(512, 512);
+exportRenderer.setSize(585, 559);
 exportRenderer.outputEncoding = three.sRGBEncoding;
 
 const exporter = new RigExporter(exportRenderer, {
