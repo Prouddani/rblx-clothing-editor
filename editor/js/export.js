@@ -153,6 +153,7 @@ class RigExporter {
         const ctx2 = canvas.getContext('2d');
 
         // Torso
+        console.log('Faces to render:', ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN']);
         ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN'].forEach(face => {
             /*
              * How it works:
@@ -161,6 +162,8 @@ class RigExporter {
              * - After doing for all sides, we simply export and the user downloads the torso
             */
 
+
+            console.log(`Processing face: ${face}`);
 
             exportScene.clear()
             ctx.clearRect(0, 0, 585, 559) // Clears the temporary context
@@ -173,7 +176,7 @@ class RigExporter {
                 UP: new THREE.Vector3(0, 1, 0),
                 DOWN: new THREE.Vector3(0, -1, 0)
             }[face];
-            console.log('Rendering face:', face, 'Camera position:', cameraPosition);
+
             camera.position.copy(cameraPosition);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
             camera.updateMatrixWorld();
