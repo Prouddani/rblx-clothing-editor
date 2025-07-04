@@ -153,7 +153,6 @@ class RigExporter {
         const ctx2 = canvas.getContext('2d');
 
         // Torso
-        console.log('Faces to render:', ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN']);
         ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN'].forEach(face => {
             /*
              * How it works:
@@ -161,9 +160,6 @@ class RigExporter {
              * - Then, we copy what is drawn in the canvas and put it in a specific place inside canvas2, by the context (ctx2)
              * - After doing for all sides, we simply export and the user downloads the torso
             */
-
-
-            console.log(`Processing face: ${face}`);
 
             exportScene.clear()
             ctx.clearRect(0, 0, 585, 559) // Clears the temporary context
@@ -227,7 +223,7 @@ class RigExporter {
             ctx2.drawImage(
                 canvas,        // source canvas
                 0, 0, canvas.width, canvas.height, // Crop image
-                x0, final_canvas.height - y1, w, h // Destination
+                x0, canvas2.height - y1, w, h // Destination
             );
         });
 
