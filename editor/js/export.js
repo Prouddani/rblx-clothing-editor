@@ -24,7 +24,7 @@ mapping['torso'] = {
 };
 mapping['bottom-left'] = {
     FRONT: [217, 76, 281, 204],
-    BACK: sum_array([217, 76, 281, 204], [-132, 0, -132, 0]),
+    BACK: [85, 76, 149, 204],
     UP: [217, 206, 281, 270],
     DOWN: sum_array([217, 206, 281, 270], [0, -196, 0, -196]),
     LEFT: sum_array([85, 76, 149, 204], [-66, 0, -66, 0]),
@@ -153,7 +153,7 @@ class RigExporter {
         const ctx2 = canvas.getContext('2d');
 
         // Torso
-        ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'TOP', 'DOWN'].forEach(face => {
+        ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN'].forEach(face => {
             /*
              * How it works:
              * - On each face, we get it's texture (with DecalGeometries), put it in a temp canvas (canvas).
