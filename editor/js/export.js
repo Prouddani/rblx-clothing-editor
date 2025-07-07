@@ -180,12 +180,14 @@ class RigExporter {
 
             // Add torso, so the decals can be projected
             const torsoclone = torso.clone();
+            console.log("Torso world position:", torsoclone.getWorldPosition(new THREE.Vector3()));
             torsoclone.material = new THREE.MeshBasicMaterial({
                 // colorWrite: false,
                 color: 0xffffff,
                 depthWrite: true,
                 depthTest: true,
             });
+            torsoclone.position.set(new THREE.Vector3(0, 0, 0));
             exportScene.add(torsoclone);
 
             // Add decals that are projected on the object
@@ -214,6 +216,7 @@ class RigExporter {
             this.renderer.render(exportScene, camera);
 
             this.renderer.setRenderTarget(null);
+            
             // Display to the #export-canvas element
             this.renderer.render(
                 new THREE.Scene().add(new THREE.Mesh(
