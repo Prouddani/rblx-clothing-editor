@@ -191,32 +191,37 @@ class RigExporter {
             exportScene.add(torsoclone);
 
             // Add decals that are projected on the object
-            for (const decal of decals) {
-                if (decal.userData.face != face)
-                    continue;
+            try {
+                for (const decal of decals) {
+                    if (decal.userData.face != face)
+                        continue;
 
-                const dc = decal.clone();
-                dc.material = new THREE.MeshBasicMaterial({
-                    map: decal.material.map,
-                    color: decal.material.color,
-                    transparent: decal.material.transparent,
-                    depthWrite: decal.material.depthWrite,
-                    depthTest: decal.material.depthTest,
-                    polygonOffset: decal.material.polygonOffset,
-                    polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
-                    alphaTest: decal.material.alphaTest,
-                    blending: THREE.NormalBlending
-                });
+                    const dc = decal.clone();
+                    dc.material = new THREE.MeshBasicMaterial({
+                        map: decal.material.map,
+                        color: decal.material.color,
+                        transparent: decal.material.transparent,
+                        depthWrite: decal.material.depthWrite,
+                        depthTest: decal.material.depthTest,
+                        polygonOffset: decal.material.polygonOffset,
+                        polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
+                        alphaTest: decal.material.alphaTest,
+                        blending: THREE.NormalBlending
+                    });
 
-                exportScene.add(dc);
-            };
+                    exportScene.add(dc);
+                };
+            }
+            catch(err) {
+                console.error(err);
+            }
 
             // Render
             this.renderer.setRenderTarget(this.renderTarget);
             this.renderer.render(exportScene, camera);
 
             this.renderer.setRenderTarget(null);
-            
+
             // Display to the #export-canvas element
             this.renderer.render(
                 new THREE.Scene().add(new THREE.Mesh(
