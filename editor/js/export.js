@@ -178,6 +178,15 @@ class RigExporter {
             camera.lookAt(new THREE.Vector3(0, 0, 0));
             camera.updateMatrixWorld();
 
+            // Add torso, so the decals can be projected
+            const torsoclone = torso.clone();
+            torsoclone.material = new THREE.MeshBasicMaterial({
+                colorWrite: false,
+                depthWrite: true,
+                depthTest: true,
+            });
+            exportScene.add(torsoclone);
+
             // Add decals that are projected on the object
             for (const decal of decals) {
                 if (decal.userData.face != face)
