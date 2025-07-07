@@ -181,7 +181,8 @@ class RigExporter {
             // Add torso, so the decals can be projected
             const torsoclone = torso.clone();
             torsoclone.material = new THREE.MeshBasicMaterial({
-                colorWrite: false,
+                // colorWrite: false,
+                color: 0xffffff,
                 depthWrite: true,
                 depthTest: true,
             });
@@ -208,9 +209,6 @@ class RigExporter {
                 exportScene.add(dc);
             };
 
-
-            console.log(`Rendering ${face}, decals found:`, decals.filter(d => d.userData.face === face).length);
-            
             // Render
             this.renderer.setRenderTarget(this.renderTarget);
             this.renderer.render(exportScene, camera);
