@@ -302,7 +302,7 @@ const draw = (hit = {}) => {
         new DecalGeometry(
             hit.instance, // The object to project on
             hit.position.clone(), // The position to project at
-            hit.normal.clone(), // The direction of the projection
+            hit.getDecalOrientation(hit.snappedNormal()), // The direction of the projection
             decalSize // The size of the projection (width, height, depth)
         ),
         new three.MeshBasicMaterial({
@@ -322,7 +322,7 @@ const draw = (hit = {}) => {
     paint.raycast = () => {}; // Ignores Raycasts
     paint.renderOrder = paintAmount
     paint.userData.face = hit.getNormalFace(hit.snappedNormal());
-
+    
     paint.material.map.encoding = three.sRGBEncoding;
     paint.material.map.colorSpace = three.SRGBColorSpace;
     paint.material.map.flipY = false;
@@ -423,7 +423,12 @@ const handleTools = (event, selectedTool) => {
                     '0, 0, -1': 'BACK',
                 };
                 return map[`${v.x}, ${v.y}, ${v.z}`];
-            }
+            },
+            getDecalOrientation: (normal) => {
+                const up = new three.Vector3(0, 0, 1); // Default "up" direction for the decal
+                const rotation = new three.Quaternion().setFromUnitVectors(up, normal.clone().normalize());
+                return new three.Euler().setFromQuaternion(rotation);
+            },
         };
 
         if (brushTool.attr('active') !== undefined) {

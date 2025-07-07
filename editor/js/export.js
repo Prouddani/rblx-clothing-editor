@@ -151,7 +151,7 @@ class RigExporter {
         canvas2.width = this.templateSettings.width;
         canvas2.height = this.templateSettings.height;
         const ctx2 = canvas2.getContext('2d');
-        
+
         // Torso
         ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN'].forEach(face => {
             /*
