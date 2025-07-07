@@ -150,8 +150,8 @@ class RigExporter {
         const canvas2 = document.createElement('canvas');
         canvas2.width = this.templateSettings.width;
         canvas2.height = this.templateSettings.height;
-        const ctx2 = canvas.getContext('2d');
-
+        const ctx2 = canvas2.getContext('2d');
+        
         // Torso
         ['FRONT', 'BACK', 'LEFT', 'RIGHT', 'UP', 'DOWN'].forEach(face => {
             /*
@@ -191,30 +191,25 @@ class RigExporter {
             exportScene.add(torsoclone);
 
             // Add decals that are projected on the object
-            try {
-                for (const decal of decals) {
-                    if (decal.userData.face != face)
-                        continue;
+            for (const decal of decals) {
+                if (decal.userData.face != face)
+                    continue;
 
-                    const dc = decal.clone();
-                    dc.material = new THREE.MeshBasicMaterial({
-                        map: decal.material.map,
-                        color: decal.material.color,
-                        transparent: decal.material.transparent,
-                        depthWrite: decal.material.depthWrite,
-                        depthTest: decal.material.depthTest,
-                        polygonOffset: decal.material.polygonOffset,
-                        polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
-                        alphaTest: decal.material.alphaTest,
-                        blending: THREE.NormalBlending
-                    });
+                const dc = decal.clone();
+                dc.material = new THREE.MeshBasicMaterial({
+                    map: decal.material.map,
+                    color: decal.material.color,
+                    transparent: decal.material.transparent,
+                    depthWrite: decal.material.depthWrite,
+                    depthTest: decal.material.depthTest,
+                    polygonOffset: decal.material.polygonOffset,
+                    polygonOffsetFactor: decal.material.polygonOffsetFactor, // Push it far forward
+                    alphaTest: decal.material.alphaTest,
+                    blending: THREE.NormalBlending
+                });
 
-                    exportScene.add(dc);
-                };
-            }
-            catch(err) {
-                console.error(err);
-            }
+                exportScene.add(dc);
+            };
 
             // Render
             this.renderer.setRenderTarget(this.renderTarget);
