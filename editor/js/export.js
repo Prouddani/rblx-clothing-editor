@@ -209,7 +209,9 @@ class RigExporter {
             };
 
 
-            // Render only that part of the face
+            console.log(`Rendering ${face}, decals found:`, decals.filter(d => d.userData.face === face).length);
+            
+            // Render
             this.renderer.setRenderTarget(this.renderTarget);
             this.renderer.render(exportScene, camera);
 
