@@ -189,7 +189,7 @@ class RigExporter {
             });
             torsoclone.position.set(new THREE.Vector3(0, 0, 0));
             exportScene.add(torsoclone);
-
+            
             // Add decals that are projected on the object
             for (const decal of decals) {
                 if (decal.userData.face != face)

@@ -302,7 +302,7 @@ const draw = (hit = {}) => {
         new DecalGeometry(
             hit.instance, // The object to project on
             hit.position.clone(), // The position to project at
-            hit.getDecalOrientation(hit.snappedNormal()), // The direction of the projection
+            hit.snappedNormal(), // The direction of the projection
             decalSize // The size of the projection (width, height, depth)
         ),
         new three.MeshBasicMaterial({
@@ -330,33 +330,6 @@ const draw = (hit = {}) => {
     scene.add(paint);
 
     paint_locations[hit.instance.name].push(paint);
-
-    // { // Interpolation between paints/decals
-    //     if (lastPaint.instance === null)
-    //         return;
-    //     if (performance.now - lastPaint.timestamp > 0.15)
-    //         return;
-
-        
-
-    //     const interpolation = new three.Mesh(
-    //         new DecalGeometry(
-    //             lastPaint.instance,
-    //             lastPaint.position.clone().lerp(hit.position),
-    //             hit.snappedNormal().clone(),
-                
-    //         ),
-    //         new three.MeshStandardMaterial({
-    //             color: paintColor.color.hexString,
-    //             transparent: true,
-    //             depthWrite: false,
-    //             depthTest: true,
-    //             polygonOffset: true,
-    //             polygonOffsetFactor: -0.1, // Push it far forward
-    //             alphaTest: 0.993,
-    //         })
-    //     )
-    // }
 }
 
 // Essential Tools (Brush, Bucket, etc.)
