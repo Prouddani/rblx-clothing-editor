@@ -292,7 +292,7 @@ const draw = (hit = {}) => {
     let decalSize;
     { // Decal Size
         const s = brushSize.val(); // Base scale
-        const depth = 0.5; // Decal's depth (scale)
+        const depth = 1; // Decal's depth (scale)
         if (Math.abs(snapped.z) === 1)
             decalSize = new three.Vector3(s, s, s * depth); // When facing Z axis
         else if (Math.abs(snapped.x) === 1)
@@ -310,13 +310,13 @@ const draw = (hit = {}) => {
             decalSize // The size of the projection (width, height, depth)
         ), 
         new three.MeshBasicMaterial({
-            map: brushShapes.CIRCULAR,
+            // map: brushShapes.CIRCULAR,
             color: new three.Color(paintColor.color.hexString),
             transparent: true,
             depthWrite: false,
             depthTest: true,
             polygonOffset: true,
-            polygonOffsetFactor: -0.1, // Push it far forward
+            polygonOffsetFactor: -0.05, // Push it far forward
             alphaTest: 0.993,
         })
     );
@@ -330,7 +330,6 @@ const draw = (hit = {}) => {
     
     paint.material.map.encoding = three.sRGBEncoding;
     paint.material.map.colorSpace = three.SRGBColorSpace;
-    paint.material.map.flipY = false;
 
     scene.add(paint);
 
