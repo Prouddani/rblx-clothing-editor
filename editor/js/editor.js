@@ -319,7 +319,7 @@ const draw = (hit = {}) => {
             hit.instance, // The object to project on
             hit.position.clone(), // The position to project at
             hit.normal.clone(), // The direction of the projection
-            new three.Vector3(brushSize.val(), brushSize.val(), 0.01), // The size of the projection (width, height, depth)
+            decalSize, // The size of the projection (width, height, depth)
         ),
         materials
     );
