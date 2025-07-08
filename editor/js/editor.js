@@ -292,12 +292,12 @@ const draw = (hit = {}) => {
     let decalSize;
     { // Decal Size
         const s = brushSize.val(); // Base scale
-        const depth = 0.001; // Decal's depth (scale)
-        if (snapped.equals(new three.Vector3(0, 0, 1)) || snapped.equals(new three.Vector3(0, 0, -1)))
+        const depth = 0.5; // Decal's depth (scale)
+        if (Math.abs(snapped.z) === 1)
             decalSize = new three.Vector3(s, s, s * depth); // When facing Z axis
-        else if (snapped.equals(new three.Vector3(1, 0, 0)) || snapped.equals(new three.Vector3(-1, 0, 0)))
+        else if (Math.abs(snapped.x) === 1)
             decalSize = new three.Vector3(s * depth, s, s); // When facing X axis
-        else if (snapped.equals(new three.Vector3(0, 1, 0)) || snapped.equals(new three.Vector3(0, -1, 0)))
+        else if (Math.abs(snapped.y) === 1)
             decalSize = new three.Vector3(s, s * depth, s); // When facing Y axis
     }
 
@@ -306,7 +306,7 @@ const draw = (hit = {}) => {
         new DecalGeometry(
             hit.instance, // The object to project on
             hit.position.clone(), // The position to project at
-            hit.snappedNormal(), // The direction of the projection
+            hit.normal.clone(), // The direction of the projection
             decalSize // The size of the projection (width, height, depth)
         ), 
         new three.MeshBasicMaterial({
@@ -326,14 +326,11 @@ const draw = (hit = {}) => {
     paint.raycast = () => {}; // Ignores Raycasts
     paint.renderOrder = paintAmount
     paint.userData.face = hit.getNormalFace(hit.snappedNormal());
+    paint.rotation = hit.getDecalOrientation(hit.snappedNormal());
     
     paint.material.map.encoding = three.sRGBEncoding;
     paint.material.map.colorSpace = three.SRGBColorSpace;
     paint.material.map.flipY = false;
-    const normal = hit.snappedNormal();
-    if (Math.abs(normal.y) === 1) {
-        paint.material.map.rotation = Math.PI / 2;
-    }
 
     scene.add(paint);
 
