@@ -297,6 +297,22 @@ const draw = (hit = {}) => {
             decalSize = new three.Vector3(s, s * depth, s); // When facing Y axis
     }
 
+    let materials = []
+    for (var i = 0; i < 6; ++i) {
+        materials.push(
+            new three.MeshBasicMaterial({
+                map: brushShapes.CIRCULAR,
+                color: new three.Color(paintColor.color.hexString),
+                transparent: true,
+                depthWrite: false,
+                depthTest: true,
+                polygonOffset: true,
+                polygonOffsetFactor: -0.05, // Push it far forward
+                alphaTest: 0.993,
+            })
+        );
+    }
+
     // Making the paint mesh (Decal)
     const paint = new three.Mesh(
         new DecalGeometry(
@@ -304,18 +320,8 @@ const draw = (hit = {}) => {
             hit.position.clone(), // The position to project at
             hit.normal.clone(), // The direction of the projection
             new three.Vector3(brushSize.val(), brushSize.val(), 0.01), // The size of the projection (width, height, depth)
-            hit.getDecalOrientation(hit.snappedNormal().clone())
         ),
-        new three.MeshBasicMaterial({
-            map: brushShapes.CIRCULAR,
-            color: new three.Color(paintColor.color.hexString),
-            transparent: true,
-            depthWrite: false,
-            depthTest: true,
-            polygonOffset: true,
-            polygonOffsetFactor: -0.05, // Push it far forward
-            alphaTest: 0.993,
-        })
+        materials
     );
     paintAmount += 1;
 
