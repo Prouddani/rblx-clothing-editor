@@ -289,17 +289,17 @@ const draw = (hit = {}) => {
     const snapped = hit.snappedNormal()
     if (!snapped) return;
 
-    // let decalSize;
-    // { // Decal Size
-    //     const s = brushSize.val(); // Base scale
-    //     const depth = 0.001; // Decal's depth (scale)
-    //     if (snapped.equals(new three.Vector3(0, 0, 1)) || snapped.equals(new three.Vector3(0, 0, -1)))
-    //         decalSize = new three.Vector3(s, s, s * depth); // When facing Z axis
-    //     else if (snapped.equals(new three.Vector3(1, 0, 0)) || snapped.equals(new three.Vector3(-1, 0, 0)))
-    //         decalSize = new three.Vector3(s * depth, s, s); // When facing X axis
-    //     else if (snapped.equals(new three.Vector3(0, 1, 0)) || snapped.equals(new three.Vector3(0, -1, 0)))
-    //         decalSize = new three.Vector3(s, s * depth, s); // When facing Y axis
-    // }
+    let decalSize;
+    { // Decal Size
+        const s = brushSize.val(); // Base scale
+        const depth = 0.001; // Decal's depth (scale)
+        if (snapped.equals(new three.Vector3(0, 0, 1)) || snapped.equals(new three.Vector3(0, 0, -1)))
+            decalSize = new three.Vector3(s, s, s * depth); // When facing Z axis
+        else if (snapped.equals(new three.Vector3(1, 0, 0)) || snapped.equals(new three.Vector3(-1, 0, 0)))
+            decalSize = new three.Vector3(s * depth, s, s); // When facing X axis
+        else if (snapped.equals(new three.Vector3(0, 1, 0)) || snapped.equals(new three.Vector3(0, -1, 0)))
+            decalSize = new three.Vector3(s, s * depth, s); // When facing Y axis
+    }
 
     // Making the paint mesh (Decal)
     const paint = new three.Mesh(
@@ -307,7 +307,7 @@ const draw = (hit = {}) => {
             hit.instance, // The object to project on
             hit.position.clone(), // The position to project at
             hit.snappedNormal(), // The direction of the projection
-            new three.Vector3(brushSize.val(), brushSize.val(), 0.001) // The size of the projection (width, height, depth)
+            decalSize // The size of the projection (width, height, depth)
         ), 
         new three.MeshBasicMaterial({
             map: brushShapes.CIRCULAR,
