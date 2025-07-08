@@ -321,7 +321,16 @@ const draw = (hit = {}) => {
             hit.normal.clone(), // The direction of the projection
             decalSize, // The size of the projection (width, height, depth)
         ),
-        materials
+        new three.MeshBasicMaterial({
+            map: brushShapes.CIRCULAR,
+            color: new three.Color(paintColor.color.hexString),
+            transparent: true,
+            depthWrite: false,
+            depthTest: true,
+            polygonOffset: true,
+            polygonOffsetFactor: -0.05, // Push it far forward
+            alphaTest: 0.993,
+        })
     );
     paintAmount += 1;
 
