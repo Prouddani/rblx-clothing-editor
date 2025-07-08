@@ -17,10 +17,6 @@ const brushShapes = {
 brushShapes.CIRCULAR.premultiplyAlpha = true;
 brushShapes.CIRCULAR.colorSpace = three.SRGBColorSpace;
 brushShapes.CIRCULAR.encoding = three.sRGBEncoding;
-brushShapes.CIRCULAR.wrapS = three.ClampToEdgeWrapping;
-brushShapes.CIRCULAR.wrapT = three.ClampToEdgeWrapping;
-brushShapes.CIRCULAR.repeat.set(1, 1);
-brushShapes.CIRCULAR.flipY = false;
 
 const brushSizeLabel = $('#brush-size-label');
 const brushSize = $('#brush-size');
@@ -308,9 +304,9 @@ const draw = (hit = {}) => {
             hit.position.clone(), // The position to project at
             hit.normal.clone(), // The direction of the projection
             decalSize // The size of the projection (width, height, depth)
-        ), 
+        ),
         new three.MeshBasicMaterial({
-            // map: brushShapes.CIRCULAR,
+            map: brushShapes.CIRCULAR,
             color: new three.Color(paintColor.color.hexString),
             transparent: true,
             depthWrite: false,
@@ -321,7 +317,7 @@ const draw = (hit = {}) => {
         })
     );
     paintAmount += 1;
-
+    
     paint.name = 'paint';
     paint.raycast = () => {}; // Ignores Raycasts
     paint.renderOrder = paintAmount
