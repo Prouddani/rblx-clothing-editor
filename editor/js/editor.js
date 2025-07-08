@@ -317,12 +317,11 @@ const draw = (hit = {}) => {
         })
     );
     paintAmount += 1;
-    
+
     paint.name = 'paint';
     paint.raycast = () => {}; // Ignores Raycasts
     paint.renderOrder = paintAmount
     paint.userData.face = hit.getNormalFace(hit.snappedNormal());
-    paint.rotation = hit.getDecalOrientation(hit.snappedNormal());
     
     paint.material.map.encoding = three.sRGBEncoding;
     paint.material.map.colorSpace = three.SRGBColorSpace;
